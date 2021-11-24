@@ -40,15 +40,14 @@ const App = () => {
     }
 
     if (currentAccount && currentStepId === "wallet") {
-      setupEventListener();
       goToNextStep();
     }
+    setupEventListener();
   };
 
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
-      setupEventListener();
 
       if (!ethereum) {
         alert("Download MetaMask to continue!");
@@ -69,6 +68,7 @@ const App = () => {
       if (currentStepId === "wallet") {
         goToNextStep();
       }
+      setupEventListener();
     } catch (error) {
       console.log(error);
     }
@@ -139,7 +139,9 @@ const App = () => {
           `Mined! See on Etherscan: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`
         );
         setIsMining(false);
-        goToNextStep();
+        setTimeout(() => {
+          goToNextStep();
+        }, 1000);
       } else {
         console.log("Ethereum object doesn't exist!");
       }
