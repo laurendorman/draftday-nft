@@ -222,7 +222,7 @@ const App = () => {
   useEffect(() => {
     isWalletConnected();
     currentAccount && setupEventListener();
-  }, [currentAccount]);
+  }, [currentAccount, isWalletConnected, setupEventListener]);
 
   return (
     <div className="App is-dark">
