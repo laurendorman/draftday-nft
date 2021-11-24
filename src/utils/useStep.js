@@ -22,9 +22,9 @@ const useStepper = (stepIds) => {
     if (isLastStep) {
       return setCurrentStepIndex(0);
     }
-
     const nextStepIndex = currentStepIndex + 1;
     setCurrentStepIndex(nextStepIndex);
+    window.scrollTo(0, 0);
   };
 
   return {

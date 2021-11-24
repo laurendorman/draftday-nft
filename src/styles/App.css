@@ -62,3 +62,19 @@ label + label, button + button, a + a {
 .nes-radio:checked+span::before {
   top: 3px;
 }
+
+.path {
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile styles */
+
+@media screen and (max-width : 812px) {
+  .container {
+    padding: 0.5rem;
+  }
+  .header-container {
+    flex-direction: column;
+  }
+}

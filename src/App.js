@@ -264,6 +264,7 @@ const App = () => {
             </p>
             <div>
               <h2>Choose your path</h2>
+              <div className="path">
               <label className={isUseWallet ? "dim" : ""}>
                 <input
                   type="radio"
@@ -284,6 +285,7 @@ const App = () => {
                 />
                 <span>I already have a MetaMask wallet</span>
               </label>
+              </div>
               <div>
                 {isCreateWallet && renderCreateWalletContainer()}
                 {isUseWallet && renderWalletContainer()}
