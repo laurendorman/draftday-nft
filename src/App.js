@@ -7,16 +7,15 @@ const ethers = require("ethers");
 const stepIds = ["wallet", "fund", "mint", "success"];
 
 // Constants
-const OPENSEA_LINK = "https://testnets.opensea.io/assets/"; // TO-DO: Replace with Mainnet
+const OPENSEA_LINK = "https://testnets.opensea.io/assets"; // TO-DO: Replace with Mainnet
 // TO-DO: Set as environment variable
 const CONTRACT_ADDRESS = "0xDB93165f586eA309A8008580520114b1f8fB8Bf9"; // TO-DO: Replace with Mainnet
 
 const App = () => {
   const { currentStepId, currentStepIndex, goToNextStep } = useStepper(stepIds);
 
-  const [currentAccount, setCurrentAccount] = useState("");
+  const [currentAccount, setCurrentAccount] = useState(null);
   const [currentBalance, setCurrentBalance] = useState('0.000 ETH');
-  console.log(currentBalance);
   const [isMining, setIsMining] = useState(false);
   const [tokenId, setTokenId] = useState(null);
 
@@ -25,7 +24,7 @@ const App = () => {
     const { ethereum } = window;
 
     if (!ethereum) {
-      return false;
+      return;
     }
 
     const accounts = await ethereum.request({ method: "eth_accounts" });
@@ -44,13 +43,12 @@ const App = () => {
       setupEventListener();
       goToNextStep();
     }
-
-    return false;
   };
 
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
+      setupEventListener();
 
       if (!ethereum) {
         alert("Download MetaMask to continue!");
@@ -60,17 +58,17 @@ const App = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
+
       setCurrentAccount(accounts[0]);
+
       await ethereum.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: "0x4" }], // TODO:Remove before Mainnet
       });
 
-      if (currentAccount && currentStepId === "wallet") {
+      if (currentStepId === 'wallet') {
         goToNextStep();
       }
-
-      setupEventListener();
     } catch (error) {
       console.log(error);
     }
@@ -149,11 +147,13 @@ const App = () => {
   // Render Methods
   const renderWalletContainer = () => (
     <button
-      onClick={isWalletConnected ? connectWallet : false}
+      onClick={currentAccount && isWalletConnected ? false : connectWallet}
       className="nes-btn is-primary"
     >
-      {isWalletConnected ? `${currentBalance}` : "Connect to MetaMask"}
-      {isWalletConnected && (
+      {currentAccount && isWalletConnected
+        ? `${currentBalance}`
+        : "Connect to MetaMask"}
+      {currentAccount && isWalletConnected && (
         <span className="account-address is-rounded">
           {`${currentAccount.slice(0, 6)}...${currentAccount.slice(
             currentAccount.length - 4,
@@ -222,7 +222,7 @@ const App = () => {
   useEffect(() => {
     isWalletConnected();
     currentAccount && setupEventListener();
-  }, []);
+  }, [currentAccount]);
 
   return (
     <div className="App is-dark">
