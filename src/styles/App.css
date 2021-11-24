@@ -1,0 +1,64 @@
+@import "https://unpkg.com/nes.css@latest/css/nes.min.css";
+
+.container {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh
+}
+
+label + label, button + button, a + a {
+  margin-left: 1rem;
+}
+
+.font-sans {
+  font-family: -apple-system, Inter, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.account-address {
+  padding: 0.25rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+/* NES Overrides */
+
+.nes-container {
+  margin: 1rem 0 !important;
+}
+
+.nes-progress {
+  height: 32px;
+}
+
+.dim {
+  opacity: 0.25;
+}
+
+.is-dark, .with-title .title, .account-address {
+  color: #fff;
+  background-color: #000 !important;  
+}
+
+.with-title > .title {
+  margin: -2rem auto 1rem !important;
+  font-size: 1.5rem !important;
+}
+
+.nes-radio:checked+span::before {
+  top: 3px;
+}

@@ -1,0 +1,30 @@
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url(./fonts/Custom.woff);
+}
+
+body,
+html {
+  margin: 0;
+  font-size: 24px !important;
+}
+
+button {
+  height: 100%;
+}
+
+body {
+  font-family: 'Press Start 2P', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
+  color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
