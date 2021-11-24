@@ -15,7 +15,7 @@ const App = () => {
   const { currentStepId, currentStepIndex, goToNextStep } = useStepper(stepIds);
 
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [currentBalance, setCurrentBalance] = useState('0.000 ETH');
+  const [currentBalance, setCurrentBalance] = useState("0.000 ETH");
   const [isMining, setIsMining] = useState(false);
   const [tokenId, setTokenId] = useState(null);
 
@@ -66,7 +66,7 @@ const App = () => {
         params: [{ chainId: "0x4" }], // TODO:Remove before Mainnet
       });
 
-      if (currentStepId === 'wallet') {
+      if (currentStepId === "wallet") {
         goToNextStep();
       }
     } catch (error) {
@@ -88,9 +88,13 @@ const App = () => {
           signer
         );
 
-        const balance = currentAccount && await provider.getBalance(currentAccount);
+        const balance =
+          currentAccount && (await provider.getBalance(currentAccount));
         const balanceToString = balance.toString();
-        currentAccount && setCurrentBalance(`${ethers.utils.formatEther(balanceToString).slice(0, 5)} ETH`);
+        currentAccount &&
+          setCurrentBalance(
+            `${ethers.utils.formatEther(balanceToString).slice(0, 5)} ETH`
+          );
 
         connectedContract.on("DraftDayNFTMinted", (from, tokenId) => {
           setTokenId(tokenId.toNumber());
@@ -222,7 +226,8 @@ const App = () => {
   useEffect(() => {
     isWalletConnected();
     currentAccount && setupEventListener();
-  }, [currentAccount, isWalletConnected, setupEventListener]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentAccount]);
 
   return (
     <div className="App is-dark">
